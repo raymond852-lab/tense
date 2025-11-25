@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Daddy's Smart Dictation</title>
+<title>Daddy's Bilingual Dictation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
   /* --- CSS STYLES --- */
@@ -14,150 +14,71 @@
   }
 
   body {
-    margin: 0;
-    background: var(--bg-grad);
-    font-family: var(--font);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #006064;
-    overflow-x: hidden;
+    margin: 0; background: var(--bg-grad); font-family: var(--font);
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    color: #006064; overflow-x: hidden;
   }
 
-  /* Screen Management */
   .screen {
-    display: none;
-    width: 90%;
-    max-width: 600px;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+    display: none; width: 90%; max-width: 600px; flex-direction: column;
+    align-items: center; padding: 20px; box-sizing: border-box;
     animation: fadeIn 0.5s ease;
   }
   .active { display: flex; }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  h1 { font-size: 2.5rem; margin: 0 0 20px 0; color: #006064; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  h1 { font-size: 2.2rem; margin: 0 0 20px 0; color: #006064; }
   p { font-size: 1.1rem; color: #006064; opacity: 0.8; }
 
-  /* Input Fields */
+  /* Inputs */
   textarea {
-    width: 100%;
-    height: 150px;
-    padding: 15px;
-    font-size: 1.1rem;
-    border-radius: 15px;
-    border: 2px solid var(--primary);
-    margin-bottom: 20px;
-    font-family: inherit;
-    resize: vertical;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    width: 100%; height: 150px; padding: 15px; font-size: 1.1rem;
+    border-radius: 15px; border: 2px solid var(--primary); margin-bottom: 20px;
+    font-family: inherit; resize: vertical;
   }
 
   input[type="text"] {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.5rem;
-    border-radius: 50px;
-    border: 3px solid var(--primary);
-    text-align: center;
-    margin: 20px 0;
-    outline: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%; padding: 15px; font-size: 1.5rem; border-radius: 50px;
+    border: 3px solid var(--primary); text-align: center; margin: 20px 0; outline: none;
   }
   input[type="text"]:focus { border-color: var(--accent); }
 
+  /* Dropdown for Language */
+  select {
+    padding: 10px; font-size: 1.1rem; border-radius: 10px;
+    border: 2px solid var(--primary); margin-bottom: 15px; background: white; width: 100%;
+  }
+
   /* Buttons */
   button {
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: inherit;
-    transition: all 0.2s;
-    margin: 5px;
-    -webkit-tap-highlight-color: transparent;
+    border: none; border-radius: 50px; cursor: pointer; font-weight: bold;
+    font-family: inherit; transition: all 0.2s; margin: 5px;
   }
   button:active { transform: scale(0.95); }
 
   .btn-primary {
-    background: var(--accent);
-    color: white;
-    font-size: 1.4rem;
-    padding: 15px 40px;
-    box-shadow: 0 4px 15px rgba(255,152,0,0.4);
-    width: 100%;
-    max-width: 300px;
+    background: var(--accent); color: white; font-size: 1.4rem;
+    padding: 15px 40px; box-shadow: 0 4px 15px rgba(255,152,0,0.4); width: 100%;
   }
   
   .btn-secondary {
-    background: var(--primary);
-    color: white;
-    font-size: 1.1rem;
-    padding: 12px 25px;
-    box-shadow: 0 4px 10px rgba(0,131,143,0.3);
+    background: var(--primary); color: white; font-size: 1.1rem; padding: 12px 25px;
   }
   
-  .btn-skip {
-    background: #546E7A;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
+  .btn-skip { background: #546E7A; color: white; padding: 10px 20px; }
+  .btn-peek { background: #E91E63; color: white; padding: 10px 25px; display: none; }
+  .btn-text { background: transparent; color: #006064; text-decoration: underline; margin-top: 20px; }
 
-  .btn-peek {
-    background: #E91E63; /* Pink for attention */
-    color: white;
-    font-size: 1.1rem;
-    padding: 10px 25px;
-    display: none; /* Hidden by default */
-    animation: pop 0.3s;
-  }
+  /* Game UI */
+  .progress-container { width: 100%; background: rgba(255,255,255,0.5); height: 10px; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
 
-  .btn-text {
-    background: transparent;
-    color: #006064;
-    text-decoration: underline;
-    font-size: 0.9rem;
-    margin-top: 20px;
-    opacity: 0.7;
-  }
-
-  /* Game Interface */
-  .progress-container {
-    width: 100%;
-    background: rgba(255,255,255,0.5);
-    height: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: var(--primary);
-    width: 0%;
-    transition: width 0.3s ease;
-  }
-
-  #feedback {
-    font-size: 1.8rem;
-    font-weight: bold;
-    min-height: 2.5rem;
-    margin: 10px 0;
-    transition: color 0.2s;
-  }
-  .feedback-neutral { color: #006064; }
-  .feedback-correct { color: #2E7D32; animation: pop 0.3s; }
-  .feedback-wrong { color: #C62828; animation: shake 0.3s; }
+  #feedback { font-size: 1.8rem; font-weight: bold; min-height: 2.5rem; margin: 10px 0; }
+  .feedback-correct { color: #2E7D32; }
+  .feedback-wrong { color: #C62828; }
   .feedback-info { color: #1565C0; }
-
-  @keyframes pop { 50% { transform: scale(1.2); } }
-  @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
   canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999; }
 </style>
@@ -166,8 +87,17 @@
 
 <div id="setupScreen" class="screen active">
   <h1>Dictation Setup 📝</h1>
-  <p>Type your list below (one per line).<br>It saves automatically.</p>
-  <textarea id="wordListInput" placeholder="Example:&#10;Apple&#10;Banana&#10;The dog ran fast."></textarea>
+  
+  <div style="width:100%; text-align:left; margin-bottom:5px; font-weight:bold;">Subject Language:</div>
+  <select id="langSelect">
+      <option value="en-GB">🇬🇧 English (British)</option>
+      <option value="zh-HK">🇭🇰 Cantonese (HK)</option>
+      <option value="zh-CN">🇨🇳 Mandarin (Putonghua)</option>
+  </select>
+
+  <p>Type list below (one per line):</p>
+  <textarea id="wordListInput" placeholder="Example:&#10;Apple&#10;蘋果&#10;老師"></textarea>
+  
   <button class="btn-primary" onclick="startGame()">Start Dictation ▶</button>
   <button class="btn-text" onclick="clearStorage()">Clear Saved List</button>
 </div>
@@ -178,7 +108,7 @@
   </div>
   <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
   
-  <div id="feedback" class="feedback-neutral">Press Listen</div>
+  <div id="feedback">Press Listen</div>
   
   <input type="text" id="kidInput" placeholder="Type answer here..." autocomplete="off">
   
@@ -198,7 +128,6 @@
 <div id="winScreen" class="screen">
   <h1 style="font-size:4rem; margin-bottom:10px;">🏆</h1>
   <h1>Great Job!</h1>
-  <p>You finished the list!</p>
   <button class="btn-primary" onclick="editList()">Play Again</button>
 </div>
 
@@ -210,27 +139,28 @@
   // --- STATE ---
   let words = [];
   let currentIndex = 0;
+  let selectedLang = 'en-GB';
 
   // --- INIT ---
   window.onload = function() {
-    const saved = localStorage.getItem('daddyDictationWords');
-    if (saved) {
-      document.getElementById('wordListInput').value = saved;
-    }
+    const savedWords = localStorage.getItem('daddyDictationWords');
+    const savedLang = localStorage.getItem('daddyDictationLang');
+    
+    if (savedWords) document.getElementById('wordListInput').value = savedWords;
+    if (savedLang) document.getElementById('langSelect').value = savedLang;
   };
 
   // --- FUNCTIONS ---
-
   function startGame() {
     const rawText = document.getElementById('wordListInput').value;
     words = rawText.split('\n').map(w => w.trim()).filter(w => w.length > 0);
+    selectedLang = document.getElementById('langSelect').value;
 
-    if (words.length === 0) {
-      alert("Please type at least one word!");
-      return;
-    }
+    if (words.length === 0) { alert("Please type at least one word!"); return; }
 
+    // Save Logic
     localStorage.setItem('daddyDictationWords', rawText);
+    localStorage.setItem('daddyDictationLang', selectedLang);
 
     currentIndex = 0;
     document.getElementById('totalNum').innerText = words.length;
@@ -238,22 +168,24 @@
     
     showScreen('gameScreen');
     prepareRound();
-    
     setTimeout(speakCurrent, 600);
   }
 
   function prepareRound() {
     document.getElementById('kidInput').value = '';
     document.getElementById('feedback').innerText = "Listen & Type";
-    document.getElementById('feedback').className = "feedback-neutral";
-    document.getElementById('peekBtn').style.display = 'none'; // Hide peek button
+    document.getElementById('feedback').className = "";
+    document.getElementById('peekBtn').style.display = 'none';
     document.getElementById('kidInput').focus();
   }
 
   function speakCurrent() {
     const txt = words[currentIndex];
     const u = new SpeechSynthesisUtterance(txt);
-    u.lang = 'en-GB'; 
+    
+    // USES THE SELECTED LANGUAGE (Cantonese or English)
+    u.lang = selectedLang; 
+    
     u.rate = 0.8;
     speechSynthesis.speak(u);
     document.getElementById('kidInput').focus();
@@ -263,11 +195,9 @@
     const kidTyped = document.getElementById('kidInput').value.trim();
     const correctWord = words[currentIndex];
 
-    if (!kidTyped) {
-        document.getElementById('feedback').innerText = "Type something first!";
-        return;
-    }
+    if (!kidTyped) { document.getElementById('feedback').innerText = "Type something!"; return; }
 
+    // For Chinese, case doesn't matter, but good to keep .toLowerCase() for English mixing
     if (kidTyped.toLowerCase() === correctWord.toLowerCase()) {
       handleCorrect();
     } else {
@@ -278,60 +208,40 @@
   function handleCorrect() {
     document.getElementById('feedback').innerHTML = "Correct! ★";
     document.getElementById('feedback').className = "feedback-correct";
-    document.getElementById('peekBtn').style.display = 'none'; // Hide if correct
+    document.getElementById('peekBtn').style.display = 'none';
     document.getElementById('snd_clap').play();
     confettiBurst('#4CAF50');
-
     setTimeout(() => {
       currentIndex++;
-      if (currentIndex >= words.length) {
-        victory();
-      } else {
-        updateProgress();
-        prepareRound();
-        setTimeout(speakCurrent, 300);
-      }
+      if (currentIndex >= words.length) victory();
+      else { updateProgress(); prepareRound(); setTimeout(speakCurrent, 300); }
     }, 1500);
   }
 
   function handleWrong() {
     document.getElementById('feedback').innerHTML = "Try again!";
     document.getElementById('feedback').className = "feedback-wrong";
-    
-    // Show the "Show Answer" button when they get it wrong
     document.getElementById('peekBtn').style.display = 'inline-block';
-    
     speakCurrent();
   }
 
-  // NEW: Reveal the answer to the child
   function revealAnswer() {
       const correctWord = words[currentIndex];
       const feedback = document.getElementById('feedback');
       feedback.innerHTML = "It is: <br><b>" + correctWord + "</b>";
       feedback.className = "feedback-info";
-      
-      // We do NOT auto-fill the input box. 
-      // We want the child to see it, then type it themselves to learn.
       document.getElementById('kidInput').focus();
   }
 
-  // NEW: Skip to next word
   function skipWord() {
       currentIndex++;
-      if (currentIndex >= words.length) {
-        victory();
-      } else {
-        updateProgress();
-        prepareRound();
-        setTimeout(speakCurrent, 300);
-      }
+      if (currentIndex >= words.length) victory();
+      else { updateProgress(); prepareRound(); setTimeout(speakCurrent, 300); }
   }
 
   function updateProgress() {
     document.getElementById('currentNum').innerText = currentIndex + 1;
-    const pct = ((currentIndex) / words.length) * 100;
-    document.getElementById('progressBar').style.width = pct + "%";
+    document.getElementById('progressBar').style.width = ((currentIndex) / words.length) * 100 + "%";
   }
 
   function victory() {
@@ -340,10 +250,8 @@
     confettiBurst();
   }
 
-  function editList() {
-    showScreen('setupScreen');
-  }
-
+  function editList() { showScreen('setupScreen'); }
+  
   function clearStorage() {
     if(confirm("Delete saved list?")) {
       localStorage.removeItem('daddyDictationWords');
@@ -356,18 +264,12 @@
     document.getElementById(id).classList.add('active');
   }
 
-  // --- VISUAL EFFECTS ---
   function confettiBurst(col = null) {
-    const c = document.getElementById('confetti'); 
-    c.style.display='block';
-    c.width = window.innerWidth; 
-    c.height = window.innerHeight;
+    const c = document.getElementById('confetti'); c.style.display='block';
+    c.width = window.innerWidth; c.height = window.innerHeight;
     const ctx = c.getContext('2d');
     const cols = col ? [col] : ['#F44336','#2196F3','#FFEB3B','#4CAF50','#9C27B0'];
-    const p = [];
-    for(let i=0; i<250; i++) {
-        p.push({x: c.width/2, y: c.height/2, c: cols[Math.floor(Math.random()*cols.length)], a: Math.random()*Math.PI*2, v: Math.random()*10+5, s: Math.random()*10+4, d: 0.95});
-    }
+    const p = Array.from({length:250},()=>({x:c.width/2,y:c.height/2,c:cols[Math.floor(Math.random()*cols.length)],a:Math.random()*6.28,v:Math.random()*10+5,s:Math.random()*10+4,d:0.95}));
     let f=0;
     const anim = setInterval(() => {
         ctx.clearRect(0, 0, c.width, c.height);
