@@ -1,74 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Daddy's Smart Dictation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
-  /* Base Styles */
-  body {margin:0;background:linear-gradient(#E0F7FA,#80DEEA);font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;text-align:center;color:#006064;}
-  
-  /* Screens */
-  .screen {display:none; width:90%; max-width:600px; flex-direction:column; align-items:center; padding-top: 5vh;}
-  .active {display:flex;}
+  /* --- CSS STYLES --- */
+  :root {
+    --primary: #00838F;
+    --accent: #FF9800;
+    --bg-grad: linear-gradient(135deg, #E0F7FA 0%, #80DEEA 100%);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
 
-  h1 {font-size:2.5rem; margin-bottom:20px; color:#006064;}
-  h2 {margin-top:0; color:#00838F;}
-  
-  /* Inputs */
-  textarea {width:100%; height:200px; padding:15px; font-size:1.2rem; border-radius:15px; border:2px solid #00838F; margin-bottom:20px; font-family:inherit;}
-  input[type="text"] {width:100%; padding:15px; font-size:1.5rem; border-radius:50px; border:3px solid #00838F; text-align:center; margin:20px 0; outline:none;}
-  
+  body {
+    margin: 0;
+    background: var(--bg-grad);
+    font-family: var(--font);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #006064;
+    overflow-x: hidden;
+  }
+
+  /* Screen Management */
+  .screen {
+    display: none;
+    width: 90%;
+    max-width: 600px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease;
+  }
+  .active { display: flex; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  h1 { font-size: 2.5rem; margin: 0 0 20px 0; color: #006064; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  p { font-size: 1.1rem; color: #006064; opacity: 0.8; }
+
+  /* Input Fields */
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 15px;
+    border: 2px solid var(--primary);
+    margin-bottom: 20px;
+    font-family: inherit;
+    resize: vertical;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.5rem;
+    border-radius: 50px;
+    border: 3px solid var(--primary);
+    text-align: center;
+    margin: 20px 0;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  input[type="text"]:focus { border-color: var(--accent); }
+
   /* Buttons */
-  button {border:none; border-radius:50px; cursor:pointer; font-weight:bold; transition:transform 0.1s, box-shadow 0.1s; margin:5px;}
-  button:active {transform:scale(0.98);}
-  
-  .btn-primary {background:#FF9800; color:white; font-size:1.5rem; padding:15px 40px; box-shadow:0 4px 15px rgba(255,152,0,0.4); width: 100%;}
-  .btn-secondary {background:#00838F; color:white; font-size:1.2rem; padding:12px 30px; box-shadow:0 4px 10px rgba(0,131,143,0.3);}
-  .btn-text {background:transparent; color:#006064; text-decoration:underline; font-size:1rem; margin-top:20px;}
+  button {
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+    transition: all 0.2s;
+    margin: 5px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:active { transform: scale(0.95); }
 
-  /* Game Elements */
-  #status {font-size:1.2rem; margin-bottom:10px; font-weight:bold;}
-  #feedback {font-size:2rem; font-weight:bold; min-height:3rem; margin:10px 0;}
-  .correct {color:#2E7D32;}
-  .wrong {color:#C62828;}
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    font-size: 1.4rem;
+    padding: 15px 40px;
+    box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+    width: 100%;
+    max-width: 300px;
+  }
   
-  /* Visuals */
-  canvas {position:fixed;top:0;left:0;pointer-events:none;z-index:999;}
+  .btn-secondary {
+    background: var(--primary);
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 25px;
+    box-shadow: 0 4px 10px rgba(0,131,143,0.3);
+  }
   
-  .progress-container {width:100%; background:#fff; height:10px; border-radius:5px; margin-bottom:20px; overflow:hidden;}
-  .progress-bar {height:100%; background:#00838F; width:0%; transition:width 0.3s;}
+  .btn-skip {
+    background: #546E7A;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .btn-peek {
+    background: #E91E63; /* Pink for attention */
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    display: none; /* Hidden by default */
+    animation: pop 0.3s;
+  }
+
+  .btn-text {
+    background: transparent;
+    color: #006064;
+    text-decoration: underline;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    opacity: 0.7;
+  }
+
+  /* Game Interface */
+  .progress-container {
+    width: 100%;
+    background: rgba(255,255,255,0.5);
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  #feedback {
+    font-size: 1.8rem;
+    font-weight: bold;
+    min-height: 2.5rem;
+    margin: 10px 0;
+    transition: color 0.2s;
+  }
+  .feedback-neutral { color: #006064; }
+  .feedback-correct { color: #2E7D32; animation: pop 0.3s; }
+  .feedback-wrong { color: #C62828; animation: shake 0.3s; }
+  .feedback-info { color: #1565C0; }
+
+  @keyframes pop { 50% { transform: scale(1.2); } }
+  @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+
+  canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999; }
 </style>
 </head>
 <body>
 
 <div id="setupScreen" class="screen active">
   <h1>Dictation Setup 📝</h1>
-  <p>Enter words below (one per line).<br>They will be saved automatically.</p>
-  <textarea id="wordListInput" placeholder="Example:&#10;Apple&#10;Banana&#10;The cat sat."></textarea>
+  <p>Type your list below (one per line).<br>It saves automatically.</p>
+  <textarea id="wordListInput" placeholder="Example:&#10;Apple&#10;Banana&#10;The dog ran fast."></textarea>
   <button class="btn-primary" onclick="startGame()">Start Dictation ▶</button>
   <button class="btn-text" onclick="clearStorage()">Clear Saved List</button>
 </div>
 
 <div id="gameScreen" class="screen">
-  <div id="status">Word <span id="currentNum">1</span> of <span id="totalNum">0</span></div>
+  <div style="font-size:1.1rem; font-weight:bold; margin-bottom:5px;">
+    Word <span id="currentNum">1</span> of <span id="totalNum">0</span>
+  </div>
   <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
   
-  <div id="feedback">Listen & Type</div>
+  <div id="feedback" class="feedback-neutral">Press Listen</div>
   
-  <input type="text" id="kidInput" placeholder="Type here..." autocomplete="off">
+  <input type="text" id="kidInput" placeholder="Type answer here..." autocomplete="off">
   
-  <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+  <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; width:100%;">
     <button class="btn-secondary" onclick="speakCurrent()">🔊 Listen</button>
-    <button class="btn-primary" style="width:auto" onclick="checkAnswer()">✔ Check</button>
+    <button class="btn-primary" style="width:auto; min-width:120px;" onclick="checkAnswer()">✔ Check</button>
+  </div>
+
+  <div style="margin-top: 15px;">
+      <button id="peekBtn" class="btn-peek" onclick="revealAnswer()">👀 Show Answer?</button>
+      <button class="btn-skip" onclick="skipWord()">⏩ Skip Next</button>
   </div>
   
   <button class="btn-text" onclick="editList()">✎ Edit List</button>
 </div>
 
 <div id="winScreen" class="screen">
-  <h1 style="font-size:4rem">YOU DID IT! 🏆</h1>
-  <p>All words correct!</p>
+  <h1 style="font-size:4rem; margin-bottom:10px;">🏆</h1>
+  <h1>Great Job!</h1>
+  <p>You finished the list!</p>
   <button class="btn-primary" onclick="editList()">Play Again</button>
 </div>
 
@@ -77,11 +207,11 @@
 <audio id="snd_clap" src="https://www.soundjay.com/human/applause-01.mp3"></audio>
 
 <script>
-  // --- LOGIC ---
+  // --- STATE ---
   let words = [];
   let currentIndex = 0;
 
-  // 1. On Load: Check if words are saved
+  // --- INIT ---
   window.onload = function() {
     const saved = localStorage.getItem('daddyDictationWords');
     if (saved) {
@@ -89,42 +219,42 @@
     }
   };
 
-  // 2. Start the Game
+  // --- FUNCTIONS ---
+
   function startGame() {
     const rawText = document.getElementById('wordListInput').value;
-    // Split by new lines, remove empty lines, trim whitespace
     words = rawText.split('\n').map(w => w.trim()).filter(w => w.length > 0);
 
     if (words.length === 0) {
-      alert("Please enter at least one word!");
+      alert("Please type at least one word!");
       return;
     }
 
-    // Save to browser memory
     localStorage.setItem('daddyDictationWords', rawText);
 
-    // Reset Game State
     currentIndex = 0;
     document.getElementById('totalNum').innerText = words.length;
     updateProgress();
     
-    // Switch Screens
     showScreen('gameScreen');
+    prepareRound();
     
-    // Prepare first word
+    setTimeout(speakCurrent, 600);
+  }
+
+  function prepareRound() {
     document.getElementById('kidInput').value = '';
-    document.getElementById('feedback').innerText = "Press Listen";
-    document.getElementById('feedback').className = "";
-    
-    // Auto speak after short delay
-    setTimeout(speakCurrent, 500);
+    document.getElementById('feedback').innerText = "Listen & Type";
+    document.getElementById('feedback').className = "feedback-neutral";
+    document.getElementById('peekBtn').style.display = 'none'; // Hide peek button
+    document.getElementById('kidInput').focus();
   }
 
   function speakCurrent() {
     const txt = words[currentIndex];
     const u = new SpeechSynthesisUtterance(txt);
-    u.lang = 'en-GB'; // British English
-    u.rate = 0.85;    // Slightly slower for clarity
+    u.lang = 'en-GB'; 
+    u.rate = 0.8;
     speechSynthesis.speak(u);
     document.getElementById('kidInput').focus();
   }
@@ -133,34 +263,69 @@
     const kidTyped = document.getElementById('kidInput').value.trim();
     const correctWord = words[currentIndex];
 
-    // Case insensitive comparison
-    if (kidTyped.toLowerCase() === correctWord.toLowerCase()) {
-      // Correct!
-      document.getElementById('feedback').innerHTML = "Correct! ★";
-      document.getElementById('feedback').className = "correct";
-      document.getElementById('snd_clap').play();
-      confettiBurst('#4CAF50'); // Green confetti
+    if (!kidTyped) {
+        document.getElementById('feedback').innerText = "Type something first!";
+        return;
+    }
 
-      setTimeout(nextWord, 1500);
+    if (kidTyped.toLowerCase() === correctWord.toLowerCase()) {
+      handleCorrect();
     } else {
-      // Wrong
-      document.getElementById('feedback').innerHTML = "Try again!";
-      document.getElementById('feedback').className = "wrong";
-      speakCurrent(); // Repeat word
+      handleWrong();
     }
   }
 
-  function nextWord() {
-    currentIndex++;
-    if (currentIndex >= words.length) {
-      victory();
-    } else {
-      updateProgress();
-      document.getElementById('kidInput').value = '';
-      document.getElementById('feedback').innerText = "Listening...";
-      document.getElementById('feedback').className = "";
-      speakCurrent();
-    }
+  function handleCorrect() {
+    document.getElementById('feedback').innerHTML = "Correct! ★";
+    document.getElementById('feedback').className = "feedback-correct";
+    document.getElementById('peekBtn').style.display = 'none'; // Hide if correct
+    document.getElementById('snd_clap').play();
+    confettiBurst('#4CAF50');
+
+    setTimeout(() => {
+      currentIndex++;
+      if (currentIndex >= words.length) {
+        victory();
+      } else {
+        updateProgress();
+        prepareRound();
+        setTimeout(speakCurrent, 300);
+      }
+    }, 1500);
+  }
+
+  function handleWrong() {
+    document.getElementById('feedback').innerHTML = "Try again!";
+    document.getElementById('feedback').className = "feedback-wrong";
+    
+    // Show the "Show Answer" button when they get it wrong
+    document.getElementById('peekBtn').style.display = 'inline-block';
+    
+    speakCurrent();
+  }
+
+  // NEW: Reveal the answer to the child
+  function revealAnswer() {
+      const correctWord = words[currentIndex];
+      const feedback = document.getElementById('feedback');
+      feedback.innerHTML = "It is: <br><b>" + correctWord + "</b>";
+      feedback.className = "feedback-info";
+      
+      // We do NOT auto-fill the input box. 
+      // We want the child to see it, then type it themselves to learn.
+      document.getElementById('kidInput').focus();
+  }
+
+  // NEW: Skip to next word
+  function skipWord() {
+      currentIndex++;
+      if (currentIndex >= words.length) {
+        victory();
+      } else {
+        updateProgress();
+        prepareRound();
+        setTimeout(speakCurrent, 300);
+      }
   }
 
   function updateProgress() {
@@ -172,7 +337,7 @@
   function victory() {
     showScreen('winScreen');
     document.getElementById('snd_win').play();
-    confettiBurst(); // Multicolor confetti
+    confettiBurst();
   }
 
   function editList() {
@@ -180,7 +345,7 @@
   }
 
   function clearStorage() {
-    if(confirm("Clear the saved list?")) {
+    if(confirm("Delete saved list?")) {
       localStorage.removeItem('daddyDictationWords');
       document.getElementById('wordListInput').value = '';
     }
@@ -191,31 +356,23 @@
     document.getElementById(id).classList.add('active');
   }
 
-  // --- VISUALS (Confetti) ---
+  // --- VISUAL EFFECTS ---
   function confettiBurst(col = null) {
     const c = document.getElementById('confetti'); 
     c.style.display='block';
     c.width = window.innerWidth; 
     c.height = window.innerHeight;
     const ctx = c.getContext('2d');
-    const cols = col ? [col] : ['#F44336','#2196F3','#FFEB3B','#4CAF50'];
-    const p = Array.from({length: 200}, () => ({
-      x: c.width/2, y: c.height/2,
-      c: cols[Math.floor(Math.random()*cols.length)],
-      a: Math.random() * Math.PI * 2,
-      v: Math.random() * 10 + 5,
-      s: Math.random() * 10 + 5
-    }));
-    
-    let t=0;
-    const anim = setInterval(()=>{
-      ctx.clearRect(0,0,c.width,c.height);
-      p.forEach(o => {
-        o.x += Math.cos(o.a) * o.v; 
-        o.y += Math.sin(o.a) * o.v + 4; 
-        ctx.fillStyle = o.c; ctx.fillRect(o.x, o.y, o.s, o.s);
-      });
-      if(++t>60) { clearInterval(anim); c.style.display='none'; }
+    const cols = col ? [col] : ['#F44336','#2196F3','#FFEB3B','#4CAF50','#9C27B0'];
+    const p = [];
+    for(let i=0; i<250; i++) {
+        p.push({x: c.width/2, y: c.height/2, c: cols[Math.floor(Math.random()*cols.length)], a: Math.random()*Math.PI*2, v: Math.random()*10+5, s: Math.random()*10+4, d: 0.95});
+    }
+    let f=0;
+    const anim = setInterval(() => {
+        ctx.clearRect(0, 0, c.width, c.height);
+        p.forEach(o => { o.x+=Math.cos(o.a)*o.v; o.y+=Math.sin(o.a)*o.v+3; o.v*=o.d; ctx.fillStyle=o.c; ctx.fillRect(o.x,o.y,o.s,o.s); });
+        if (++f>60) { clearInterval(anim); c.style.display='none'; }
     }, 30);
   }
 </script>
