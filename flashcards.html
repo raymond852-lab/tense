@@ -1,385 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Section B Verb Flashcards</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f4f6f8;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-    .container {
-      text-align: center;
-      width: 100%;
-      max-width: 400px;
-      padding: 0 10px;
-    }
-    h1 {
-      color: #333;
-      font-size: 24px;
-      margin: 10px 0;
-    }
-    .card-container {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      margin: 15px 0;
-      height: 300px;
-      perspective: 1000px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-    }
-    .card.flipped {
-      transform: rotateY(180deg);
-    }
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 12px;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-    .card-front {
-      background-color: #007bff;
-      color: white;
-      font-size: 28px;
-      font-weight: 600;
-    }
-    .card-back {
-      background-color: #28a745;
-      color: white;
-      font-size: 18px;
-      transform: rotateY(180deg);
-      text-align: left;
-      overflow-y: auto;
-    }
-    .card-back table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .card-back th, .card-back td {
-      padding: 8px;
-      border: 1px solid #fff;
-      font-size: 18px;
-    }
-    .card-back th {
-      font-weight: 600;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 8px;
-      font-size: 18px;
-      min-width: 120px;
-      touch-action: manipulation;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .difficulty-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    .add-flashcard-con {
-      margin: 15px 0;
-    }
-    .question-container {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-      width: 90%;
-      max-width: 360px;
-    }
-    .question-container.show {
-      display: block;
-    }
-    .question-container textarea {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    .error-con {
-      color: red;
-      display: none;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    .error-con.show {
-      display: block;
-    }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    @media (max-width: 428px) {
-      .card-front {
-        font-size: 24px;
-      }
-      .card-back th, .card-back td {
-        font-size: 16px;
-      }
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<title>Daddy's Smart Dictation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+  /* Base Styles */
+  body {margin:0;background:linear-gradient(#E0F7FA,#80DEEA);font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;text-align:center;color:#006064;}
+  
+  /* Screens */
+  .screen {display:none; width:90%; max-width:600px; flex-direction:column; align-items:center; padding-top: 5vh;}
+  .active {display:flex;}
+
+  h1 {font-size:2.5rem; margin-bottom:20px; color:#006064;}
+  h2 {margin-top:0; color:#00838F;}
+  
+  /* Inputs */
+  textarea {width:100%; height:200px; padding:15px; font-size:1.2rem; border-radius:15px; border:2px solid #00838F; margin-bottom:20px; font-family:inherit;}
+  input[type="text"] {width:100%; padding:15px; font-size:1.5rem; border-radius:50px; border:3px solid #00838F; text-align:center; margin:20px 0; outline:none;}
+  
+  /* Buttons */
+  button {border:none; border-radius:50px; cursor:pointer; font-weight:bold; transition:transform 0.1s, box-shadow 0.1s; margin:5px;}
+  button:active {transform:scale(0.98);}
+  
+  .btn-primary {background:#FF9800; color:white; font-size:1.5rem; padding:15px 40px; box-shadow:0 4px 15px rgba(255,152,0,0.4); width: 100%;}
+  .btn-secondary {background:#00838F; color:white; font-size:1.2rem; padding:12px 30px; box-shadow:0 4px 10px rgba(0,131,143,0.3);}
+  .btn-text {background:transparent; color:#006064; text-decoration:underline; font-size:1rem; margin-top:20px;}
+
+  /* Game Elements */
+  #status {font-size:1.2rem; margin-bottom:10px; font-weight:bold;}
+  #feedback {font-size:2rem; font-weight:bold; min-height:3rem; margin:10px 0;}
+  .correct {color:#2E7D32;}
+  .wrong {color:#C62828;}
+  
+  /* Visuals */
+  canvas {position:fixed;top:0;left:0;pointer-events:none;z-index:999;}
+  
+  .progress-container {width:100%; background:#fff; height:10px; border-radius:5px; margin-bottom:20px; overflow:hidden;}
+  .progress-bar {height:100%; background:#00838F; width:0%; transition:width 0.3s;}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Section B Verb Flashcards</h1>
-    <div class="add-flashcard-con">
-      <button id="add-flashcard">Add New Flashcard</button>
-    </div>
-    <div class="card-container" id="card-con">
-      <div class="card" id="card">
-        <div class="card-front">
-          <p id="front-text">Tap Next to Start</p>
-        </div>
-        <div class="card-back">
-          <table id="back-text"></table>
-        </div>
-      </div>
-    </div>
-    <div>
-      <button id="flip-card">Flip Card</button>
-      <button id="next-card">Next Card</button>
-    </div>
-    <div class="difficulty-buttons">
-      <button class="difficulty" data-difficulty="easy">Easy</button>
-      <button class="difficulty" data-difficulty="medium">Medium</button>
-      <button class="difficulty" data-difficulty="hard">Hard</button>
-    </div>
+
+<div id="setupScreen" class="screen active">
+  <h1>Dictation Setup 📝</h1>
+  <p>Enter words below (one per line).<br>They will be saved automatically.</p>
+  <textarea id="wordListInput" placeholder="Example:&#10;Apple&#10;Banana&#10;The cat sat."></textarea>
+  <button class="btn-primary" onclick="startGame()">Start Dictation ▶</button>
+  <button class="btn-text" onclick="clearStorage()">Clear Saved List</button>
+</div>
+
+<div id="gameScreen" class="screen">
+  <div id="status">Word <span id="currentNum">1</span> of <span id="totalNum">0</span></div>
+  <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
+  
+  <div id="feedback">Listen & Type</div>
+  
+  <input type="text" id="kidInput" placeholder="Type here..." autocomplete="off">
+  
+  <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+    <button class="btn-secondary" onclick="speakCurrent()">🔊 Listen</button>
+    <button class="btn-primary" style="width:auto" onclick="checkAnswer()">✔ Check</button>
   </div>
-  <div class="question-container" id="add-question-card">
-    <h2>Add Flashcard</h2>
-    <div class="wrapper">
-      <div class="error-con" id="error">Input fields cannot be empty!</div>
-      <i class="fa-solid fa-xmark" id="close-btn"></i>
-    </div>
-    <label for="question">Verb (Present) + Chinese Meaning:</label>
-    <textarea id="question" placeholder="e.g., cost 價值" rows="2"></textarea>
-    <label for="answer">Forms (Present, Present Participle, Past, Past Participle) + Sentences:</label>
-    <textarea id="answer" placeholder="e.g., cost, costing, cost, cost, It costs a lot, I am costing them money, It cost me $10, I have cost them enough" rows="5"></textarea>
-    <button id="save-card">Save Flashcard</button>
-  </div>
-  <script>
-    const flashcards = [
-      {
-        question: "cost 價值",
-        answer: "cost, costing, cost, cost, It costs a lot, I am costing them money, It cost me $10, I have cost them enough.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "cut 割",
-        answer: "cut, cutting, cut, cut, I cut paper, I am cutting wood, I cut my hair, I have cut the cake.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "hit 打",
-        answer: "hit, hitting, hit, hit, I hit the ball, I am hitting a drum, I hit my toe, I have hit the jackpot.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "hurt 傷害",
-        answer: "hurt, hurting, hurt, hurt, It hurts to fall, I am hurting inside, I hurt my knee, I have hurt my friend.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "let 允許",
-        answer: "let, letting, let, let, I let him go, I am letting them play, I let the cat in, I have let them down.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "put 放置",
-        answer: "put, putting, put, put, I put the book down, I am putting dishes on the table, I put my phone here, I have put effort into it.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "read 閱讀",
-        answer: "read, reading, read, read, I read (/ri:d/) a book, I am reading a comic, I read (/rɛd/) the news, I have read (/rɛd/) that novel.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "set 安放",
-        answer: "set, setting, set, set, I set the table, I am setting goals, I set a record, I have set the stage.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "shut 關閉",
-        answer: "shut, shutting, shut, shut, I shut the door, I am shutting the gate, I shut my eyes, I have shut the box.",
-        difficulty: "medium",
-        nextReview: new Date()
-      },
-      {
-        question: "spread 傳播",
-        answer: "spread, spreading, spread, spread, I spread butter, I am spreading paint, I spread the blanket, I have spread joy.",
-        difficulty: "medium",
-        nextReview: new Date()
-      }
-    ];
+  
+  <button class="btn-text" onclick="editList()">✎ Edit List</button>
+</div>
 
-    const card = document.getElementById("card");
-    const frontText = document.getElementById("front-text");
-    const backText = document.getElementById("back-text");
-    const flipButton = document.getElementById("flip-card");
-    const nextButton = document.getElementById("next-card");
-    const difficultyButtons = document.querySelectorAll(".difficulty");
-    const addFlashcardButton = document.getElementById("add-flashcard");
-    const questionContainer = document.getElementById("add-question-card");
-    const closeButton = document.getElementById("close-btn");
-    const saveButton = document.getElementById("save-card");
-    const questionInput = document.getElementById("question");
-    const answerInput = document.getElementById("answer");
-    const errorContainer = document.getElementById("error");
+<div id="winScreen" class="screen">
+  <h1 style="font-size:4rem">YOU DID IT! 🏆</h1>
+  <p>All words correct!</p>
+  <button class="btn-primary" onclick="editList()">Play Again</button>
+</div>
 
-    let currentCardIndex = -1;
+<canvas id="confetti"></canvas>
+<audio id="snd_win" src="https://www.soundjay.com/misc/success-1.mp3"></audio>
+<audio id="snd_clap" src="https://www.soundjay.com/human/applause-01.mp3"></audio>
 
-    function showCard(index) {
-      if (index < 0 || index >= flashcards.length) {
-        frontText.textContent = "No more cards!";
-        backText.innerHTML = "";
-        return;
-      }
-      const cardData = flashcards[index];
-      frontText.textContent = cardData.question;
-      const [present, participle, past, pastPart, s1, s2, s3, s4] = cardData.answer.split(", ");
-      backText.innerHTML = `
-        <tr><th>Form</th><th>Verb</th><th>Example</th></tr>
-        <tr><td>Present</td><td>${present}</td><td>${s1}</td></tr>
-        <tr><td>Present Participle</td><td>${participle}</td><td>${s2}</td></tr>
-        <tr><td>Past</td><td>${past}</td><td>${s3}</td></tr>
-        <tr><td>Past Participle</td><td>${pastPart}</td><td>${s4}</td></tr>
-      `;
-      card.classList.remove("flipped");
+<script>
+  // --- LOGIC ---
+  let words = [];
+  let currentIndex = 0;
+
+  // 1. On Load: Check if words are saved
+  window.onload = function() {
+    const saved = localStorage.getItem('daddyDictationWords');
+    if (saved) {
+      document.getElementById('wordListInput').value = saved;
+    }
+  };
+
+  // 2. Start the Game
+  function startGame() {
+    const rawText = document.getElementById('wordListInput').value;
+    // Split by new lines, remove empty lines, trim whitespace
+    words = rawText.split('\n').map(w => w.trim()).filter(w => w.length > 0);
+
+    if (words.length === 0) {
+      alert("Please enter at least one word!");
+      return;
     }
 
-    function getNextCard() {
-      const now = new Date();
-      const dueCards = flashcards.filter(card => card.nextReview <= now);
-      if (dueCards.length === 0) {
-        currentCardIndex = -1;
-        showCard(currentCardIndex);
-        return;
-      }
-      currentCardIndex = flashcards.indexOf(dueCards[Math.floor(Math.random() * dueCards.length)]);
-      showCard(currentCardIndex);
+    // Save to browser memory
+    localStorage.setItem('daddyDictationWords', rawText);
+
+    // Reset Game State
+    currentIndex = 0;
+    document.getElementById('totalNum').innerText = words.length;
+    updateProgress();
+    
+    // Switch Screens
+    showScreen('gameScreen');
+    
+    // Prepare first word
+    document.getElementById('kidInput').value = '';
+    document.getElementById('feedback').innerText = "Press Listen";
+    document.getElementById('feedback').className = "";
+    
+    // Auto speak after short delay
+    setTimeout(speakCurrent, 500);
+  }
+
+  function speakCurrent() {
+    const txt = words[currentIndex];
+    const u = new SpeechSynthesisUtterance(txt);
+    u.lang = 'en-GB'; // British English
+    u.rate = 0.85;    // Slightly slower for clarity
+    speechSynthesis.speak(u);
+    document.getElementById('kidInput').focus();
+  }
+
+  function checkAnswer() {
+    const kidTyped = document.getElementById('kidInput').value.trim();
+    const correctWord = words[currentIndex];
+
+    // Case insensitive comparison
+    if (kidTyped.toLowerCase() === correctWord.toLowerCase()) {
+      // Correct!
+      document.getElementById('feedback').innerHTML = "Correct! ★";
+      document.getElementById('feedback').className = "correct";
+      document.getElementById('snd_clap').play();
+      confettiBurst('#4CAF50'); // Green confetti
+
+      setTimeout(nextWord, 1500);
+    } else {
+      // Wrong
+      document.getElementById('feedback').innerHTML = "Try again!";
+      document.getElementById('feedback').className = "wrong";
+      speakCurrent(); // Repeat word
     }
+  }
 
-    flipButton.addEventListener("click", () => {
-      card.classList.toggle("flipped");
-    });
+  function nextWord() {
+    currentIndex++;
+    if (currentIndex >= words.length) {
+      victory();
+    } else {
+      updateProgress();
+      document.getElementById('kidInput').value = '';
+      document.getElementById('feedback').innerText = "Listening...";
+      document.getElementById('feedback').className = "";
+      speakCurrent();
+    }
+  }
 
-    nextButton.addEventListener("click", () => {
-      getNextCard();
-    });
+  function updateProgress() {
+    document.getElementById('currentNum').innerText = currentIndex + 1;
+    const pct = ((currentIndex) / words.length) * 100;
+    document.getElementById('progressBar').style.width = pct + "%";
+  }
 
-    difficultyButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        if (currentCardIndex >= 0) {
-          const difficulty = button.getAttribute("data-difficulty");
-          const card = flashcards[currentCardIndex];
-          card.difficulty = difficulty;
-          const now = new Date();
-          if (difficulty === "easy") {
-            card.nextReview = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000); // 3 days
-          } else if (difficulty === "medium") {
-            card.nextReview = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 1 day
-          } else {
-            card.nextReview = new Date(now.getTime() + 10 * 60 * 1000); // 10 minutes
-          }
-          getNextCard();
-        }
+  function victory() {
+    showScreen('winScreen');
+    document.getElementById('snd_win').play();
+    confettiBurst(); // Multicolor confetti
+  }
+
+  function editList() {
+    showScreen('setupScreen');
+  }
+
+  function clearStorage() {
+    if(confirm("Clear the saved list?")) {
+      localStorage.removeItem('daddyDictationWords');
+      document.getElementById('wordListInput').value = '';
+    }
+  }
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // --- VISUALS (Confetti) ---
+  function confettiBurst(col = null) {
+    const c = document.getElementById('confetti'); 
+    c.style.display='block';
+    c.width = window.innerWidth; 
+    c.height = window.innerHeight;
+    const ctx = c.getContext('2d');
+    const cols = col ? [col] : ['#F44336','#2196F3','#FFEB3B','#4CAF50'];
+    const p = Array.from({length: 200}, () => ({
+      x: c.width/2, y: c.height/2,
+      c: cols[Math.floor(Math.random()*cols.length)],
+      a: Math.random() * Math.PI * 2,
+      v: Math.random() * 10 + 5,
+      s: Math.random() * 10 + 5
+    }));
+    
+    let t=0;
+    const anim = setInterval(()=>{
+      ctx.clearRect(0,0,c.width,c.height);
+      p.forEach(o => {
+        o.x += Math.cos(o.a) * o.v; 
+        o.y += Math.sin(o.a) * o.v + 4; 
+        ctx.fillStyle = o.c; ctx.fillRect(o.x, o.y, o.s, o.s);
       });
-    });
-
-    addFlashcardButton.addEventListener("click", () => {
-      questionContainer.classList.add("show");
-    });
-
-    closeButton.addEventListener("click", () => {
-      questionContainer.classList.remove("show");
-      questionInput.value = "";
-      answerInput.value = "";
-      errorContainer.classList.remove("show");
-    });
-
-    saveButton.addEventListener("click", () => {
-      if (!questionInput.value || !answerInput.value) {
-        errorContainer.classList.add("show");
-        return;
-      }
-      const newCard = {
-        question: questionInput.value,
-        answer: answerInput.value,
-        difficulty: "medium",
-        nextReview: new Date()
-      };
-      flashcards.push(newCard);
-      questionContainer.classList.remove("show");
-      questionInput.value = "";
-      answerInput.value = "";
-      errorContainer.classList.remove("show");
-      getNextCard();
-    });
-
-    // Initialize with first card
-    getNextCard();
-  </script>
+      if(++t>60) { clearInterval(anim); c.style.display='none'; }
+    }, 30);
+  }
+</script>
 </body>
 </html>
