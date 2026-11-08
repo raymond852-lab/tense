@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P.4 English Formative Assessment (3)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .handwriting {
+            font-family: 'Comic Neue', cursive;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 13pt;
+            }
+            .page-container {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+            .page-break {
+                page-break-after: always;
+                break-after: page;
+            }
+            input[type="text"], textarea {
+                border: none !important;
+                border-bottom: 1px solid #000 !important;
+                background: transparent !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                resize: none !important;
+            }
+            .answer-badge {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="py-6 px-3 sm:px-6">
+
+    <!-- Interactive Control Panel (Hidden on Print) -->
+    <div class="no-print max-w-4xl mx-auto mb-6 bg-white p-4 rounded-xl shadow-md border border-gray-200 flex flex-wrap items-center justify-between gap-3 sticky top-4 z-50">
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-3 h-3 rounded-full bg-blue-600"></span>
+            <h1 class="font-bold text-gray-800 text-lg">P.4 English Assessment</h1>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+            <button onclick="checkAnswers()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg shadow transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Check Answers / 核對答案
+            </button>
+            <button onclick="toggleAnswerKey()" id="btn-toggle-key" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg shadow transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                Show Sample Answers / 參考答案
+            </button>
+            <button onclick="resetForm()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium text-sm rounded-lg shadow transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                Reset / 重填
+            </button>
+            <button onclick="window.print()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Print PDF / 列印
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Exam Sheet Container -->
+    <div class="page-container max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-xl border border-gray-200">
+        
+        <!-- Header Section -->
+        <header class="border-b-2 border-gray-800 pb-4 mb-6">
+            <div class="flex flex-wrap justify-between items-start gap-4">
+                <div class="w-full sm:w-auto">
+                    <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">English Formative Assessment (3)</h1>
+                    <p class="text-sm font-semibold text-gray-600 mt-1">2026-2027 &nbsp;|&nbsp; Class: P.4 ( &nbsp;&nbsp;&nbsp;&nbsp; )</p>
+                </div>
+                <!-- Score Box -->
+                <div class="border-2 border-gray-800 rounded-lg p-3 text-center min-w-[150px] bg-amber-50/50">
+                    <div class="text-xs uppercase tracking-wider text-gray-600 font-bold">Marks</div>
+                    <div class="text-2xl font-black text-gray-900 mt-0.5">
+                        <span id="current-score" class="text-blue-700">__</span> <span class="text-base font-normal text-gray-500">/ 55</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Metadata Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-4 text-sm">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold whitespace-nowrap">Name:</span>
+                    <input type="text" placeholder="Student Name" class="border-b border-gray-400 focus:border-blue-600 outline-none w-full px-1 py-0.5 handwriting text-blue-900 font-semibold">
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold whitespace-nowrap">Date:</span>
+                    <input type="text" value="2nd November, 2026" class="border-b border-gray-400 focus:border-blue-600 outline-none w-full px-1 py-0.5">
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold whitespace-nowrap">Time Allowed:</span>
+                    <span class="font-medium text-gray-700">25 mins</span>
+                </div>
+                <div class="flex items-center gap-2 sm:col-span-2">
+                    <span class="font-bold whitespace-nowrap">Parent's Signature:</span>
+                    <input type="text" class="border-b border-gray-400 outline-none w-full px-1 py-0.5">
+                </div>
+            </div>
+        </header>
+
+        <!-- PART A -->
+        <section class="mb-8">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>A. Read Joe's diary. Fill in the blanks with the CORRECT FORM of the verbs.</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(8 marks, @ 1 mark)</span>
+            </h2>
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-5 text-gray-800 leading-relaxed text-sm sm:text-base space-y-3">
+                <p>
+                    My parents and I <i>(e.g.)</i> <span class="underline font-semibold text-gray-700">like</span> (like) outdoor activities very much. My mum always 
+                    (1) <input type="text" id="ans-a1" data-answer="runs" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-24 text-center font-semibold text-blue-900 handwriting px-1"> (run) after work and my dad often 
+                    (2) <input type="text" id="ans-a2" data-answer="plays" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-24 text-center font-semibold text-blue-900 handwriting px-1"> (play) basketball with me and his friends on weekends. It 
+                    (3) <input type="text" id="ans-a3" data-answer="is" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-20 text-center font-semibold text-blue-900 handwriting px-1"> (be) so much fun.
+                </p>
+                <p>
+                    Yesterday, the weather (4) <input type="text" id="ans-a4" data-answer="was" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-20 text-center font-semibold text-blue-900 handwriting px-1"> (be) sunny and windy. We 
+                    (5) <input type="text" id="ans-a5" data-answer="went" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-24 text-center font-semibold text-blue-900 handwriting px-1"> (go) hiking in Ma On Shan Country Park in the morning. After that, we 
+                    (6) <input type="text" id="ans-a6" data-answer="had" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-24 text-center font-semibold text-blue-900 handwriting px-1"> (have) a picnic on the green grass. In the afternoon, we 
+                    (7) <input type="text" id="ans-a7" data-answer="visited" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1"> (visit) the Wildlife Museum. However, we 
+                    (8) <input type="text" id="ans-a8" data-answer="didn't stay|did not stay" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-32 text-center font-semibold text-blue-900 handwriting px-1"> (not stay) there for enough time because it closed early.
+                </p>
+            </div>
+        </section>
+
+        <!-- PART B -->
+        <section class="mb-8">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>B. Fill in the blanks with the verbs given. The following words can ONLY be used ONCE.</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(8 marks, @ 2 marks)</span>
+            </h2>
+            <div class="border border-gray-300 rounded-lg p-2.5 mb-3 text-center font-bold text-gray-800 bg-amber-50/60 tracking-wider text-sm sm:text-base">
+                can &nbsp;&nbsp;|&nbsp;&nbsp; can't &nbsp;&nbsp;|&nbsp;&nbsp; could &nbsp;&nbsp;|&nbsp;&nbsp; couldn't &nbsp;&nbsp;|&nbsp;&nbsp; were &nbsp;&nbsp;|&nbsp;&nbsp; weren't
+            </div>
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-5 text-gray-800 leading-relaxed text-sm sm:text-base space-y-3">
+                <p>
+                    When I was a little baby, I (1) <input type="text" id="ans-b1" data-answer="couldn't" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1"> feed by myself. Mum needed to feed me all the time. However, I (2) <input type="text" id="ans-b2" data-answer="could" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1"> listen to music. Mum said I loved music very much.
+                </p>
+                <p>
+                    Now, I am ten years old, I (3) <input type="text" id="ans-b3" data-answer="can" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1"> help with the housework, like washing the dishes and cleaning the table. In the evening last night, there (4) <input type="text" id="ans-b4" data-answer="were" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1"> lots of dishes because we had a big meal.
+                </p>
+            </div>
+        </section>
+
+        <!-- PART C -->
+        <section class="mb-8">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>C. Fill in the blanks with the conjunctions given. The following words can ONLY be used ONCE.</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(6 marks, @ 2 marks)</span>
+            </h2>
+            <div class="border border-gray-300 rounded-lg p-2.5 mb-3 text-center font-bold text-gray-800 bg-emerald-50/60 tracking-wider text-sm sm:text-base">
+                while &nbsp;&nbsp;|&nbsp;&nbsp; in order to &nbsp;&nbsp;|&nbsp;&nbsp; thus &nbsp;&nbsp;|&nbsp;&nbsp; even though &nbsp;&nbsp;|&nbsp;&nbsp; since
+            </div>
+            <div class="space-y-3 text-sm sm:text-base">
+                <div class="flex flex-wrap items-baseline gap-1.5 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <span class="font-bold">1.</span>
+                    <span>Cindy studied hard</span>
+                    <input type="text" id="ans-c1" data-answer="in order to" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-36 text-center font-semibold text-blue-900 handwriting px-1">
+                    <span>get a good result in the test.</span>
+                </div>
+                <div class="flex flex-wrap items-baseline gap-1.5 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <span class="font-bold">2.</span>
+                    <span>Dad felt really sick</span>
+                    <input type="text" id="ans-c2" data-answer="thus" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1">
+                    <span>he didn't go to work yesterday.</span>
+                </div>
+                <div class="flex flex-wrap items-baseline gap-1.5 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <span class="font-bold">3.</span>
+                    <span>Tina didn't buy a new bike</span>
+                    <input type="text" id="ans-c3" data-answer="even though" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-36 text-center font-semibold text-blue-900 handwriting px-1">
+                    <span>the old one was broken.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART D -->
+        <section class="mb-8">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>D. Check reflexive pronouns. Write ✓ if correct, or write the correct reflexive pronoun.</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(6 marks, @ 2 marks)</span>
+            </h2>
+            <div class="bg-blue-50/50 p-3 rounded-lg text-xs sm:text-sm text-gray-700 mb-3 space-y-1 border border-blue-100">
+                <p><i>e.g.</i> I can clean the table by <u>myself</u>. &nbsp;&nbsp;&rarr;&nbsp;&nbsp; <b>[ ✓ ]</b></p>
+                <p><i>e.g.</i> The girl can't water the plant by <u>myself</u>. &nbsp;&nbsp;&rarr;&nbsp;&nbsp; <b>[ herself ]</b></p>
+            </div>
+            <div class="space-y-3 text-sm sm:text-base">
+                <div class="flex flex-wrap items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 gap-2">
+                    <span>1. My little brother can tidy up the desk by <u>himself</u>.</span>
+                    <div class="flex items-center gap-1">
+                        <span class="font-bold text-gray-600 text-xs">Ans:</span>
+                        <input type="text" id="ans-d1" data-answer="v|✓" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1" placeholder="✓ or correct word">
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 gap-2">
+                    <span>2. Students please do the project by <u>yourself</u>.</span>
+                    <div class="flex items-center gap-1">
+                        <span class="font-bold text-gray-600 text-xs">Ans:</span>
+                        <input type="text" id="ans-d2" data-answer="yourselves" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1" placeholder="✓ or correct word">
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 gap-2">
+                    <span>3. The little girls couldn't iron the clothes by <u>herself</u>.</span>
+                    <div class="flex items-center gap-1">
+                        <span class="font-bold text-gray-600 text-xs">Ans:</span>
+                        <input type="text" id="ans-d3" data-answer="themselves" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-28 text-center font-semibold text-blue-900 handwriting px-1" placeholder="✓ or correct word">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART E -->
+        <section class="mb-8">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>E. Bonus Part: Rearrange the words to form a correct question.</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(3 marks)</span>
+            </h2>
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-5 space-y-3 text-sm sm:text-base">
+                <p class="font-semibold text-gray-700">buy / you / storybooks? / Where / did / the</p>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold">Ans:</span>
+                    <input type="text" id="ans-e1" data-answer="Where did you buy the storybooks?|Where did you buy the story books?" class="border-b-2 border-gray-400 focus:border-blue-600 outline-none w-full font-semibold text-blue-900 handwriting px-1 py-1" placeholder="Type the full sentence here...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Page break marker for printer printing -->
+        <div class="page-break"></div>
+
+        <!-- PART F -->
+        <section class="mb-8 mt-6">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>F. Fill in the blank with the CORRECT FORM of the verbs.</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(10 marks, @ 1 mark)</span>
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse border border-gray-300 text-sm sm:text-base">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-800">
+                            <th class="border border-gray-300 p-2.5 font-bold">#</th>
+                            <th class="border border-gray-300 p-2.5 font-bold w-1/3">Present Tense</th>
+                            <th class="border border-gray-300 p-2.5 font-bold w-1/3">Present Participle</th>
+                            <th class="border border-gray-300 p-2.5 font-bold w-1/3">Past Tense</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">1</td>
+                            <td class="border border-gray-300 p-2">buy</td>
+                            <td class="border border-gray-300 p-2">buying</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f1" data-answer="bought" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">2</td>
+                            <td class="border border-gray-300 p-2">carry</td>
+                            <td class="border border-gray-300 p-2">carrying</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f2" data-answer="carried" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">3</td>
+                            <td class="border border-gray-300 p-2">catch</td>
+                            <td class="border border-gray-300 p-2">catching</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f3" data-answer="caught" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">4</td>
+                            <td class="border border-gray-300 p-2">clap</td>
+                            <td class="border border-gray-300 p-2">clapping</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f4" data-answer="clapped" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">5</td>
+                            <td class="border border-gray-300 p-2">climb</td>
+                            <td class="border border-gray-300 p-2">climbing</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f5" data-answer="climbed" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">6</td>
+                            <td class="border border-gray-300 p-2">close</td>
+                            <td class="border border-gray-300 p-2">closing</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f6" data-answer="closed" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">7</td>
+                            <td class="border border-gray-300 p-2">collect</td>
+                            <td class="border border-gray-300 p-2">collecting</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f7" data-answer="collected" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">8</td>
+                            <td class="border border-gray-300 p-2">copy</td>
+                            <td class="border border-gray-300 p-2">copying</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f8" data-answer="copied" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">9</td>
+                            <td class="border border-gray-300 p-2">cry</td>
+                            <td class="border border-gray-300 p-2">crying</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f9" data-answer="cried" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-gray-500 font-medium">10</td>
+                            <td class="border border-gray-300 p-2">cycle</td>
+                            <td class="border border-gray-300 p-2">cycling</td>
+                            <td class="border border-gray-300 p-2"><input type="text" id="ans-f10" data-answer="cycled" class="w-full border-b border-gray-400 outline-none font-semibold text-blue-900 handwriting px-1"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PART G -->
+        <section class="mb-4">
+            <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-2 flex justify-between items-baseline">
+                <span>G. Writing Task: Mum's Birthday</span>
+                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">(14 marks)</span>
+            </h2>
+            
+            <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                You are Joe. Yesterday was Mum's birthday. Based on the pictures below, write about what happened in at least <b>70 words</b> and in <b>4 paragraphs</b>. You must use the following key elements:
+            </p>
+
+            <!-- Instructions Box -->
+            <div class="border border-amber-300 bg-amber-50/70 p-3 rounded-lg text-xs sm:text-sm text-amber-900 mb-4 space-y-1">
+                <p><b>Key Elements:</b></p>
+                <p>1. Use <b>'could'</b> or <b>'couldn't'</b> at least once.</p>
+                <p>2. Use <b>conjunctions</b> at least once (e.g. <i>but, because, so, thus</i>...)</p>
+            </div>
+
+            <!-- Picture Prompts Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <!-- Picture 1 -->
+                <div class="border border-gray-300 rounded-lg p-2.5 bg-gray-50 text-center flex flex-col justify-between">
+                    <div class="h-28 flex items-center justify-center bg-white rounded border border-gray-200 mb-2 p-1">
+                        <svg class="w-20 h-20 text-gray-600" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="15" y="30" width="70" height="60" rx="4" />
+                            <path d="M40 30 V10 H60 V30" />
+                            <circle cx="50" cy="55" r="12" />
+                            <path d="M40 75 H60" />
+                        </svg>
+                    </div>
+                    <p class="text-xs font-medium text-gray-700">1. cake shop / celebrate / birthday</p>
+                </div>
+                <!-- Picture 2 -->
+                <div class="border border-gray-300 rounded-lg p-2.5 bg-gray-50 text-center flex flex-col justify-between">
+                    <div class="h-28 flex items-center justify-center bg-white rounded border border-gray-200 mb-2 p-1">
+                        <svg class="w-20 h-20 text-amber-700" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                            <ellipse cx="50" cy="65" rx="30" ry="15" fill="#fef3c7" />
+                            <rect x="20" y="45" width="60" height="20" fill="#d97706" />
+                            <circle cx="50" cy="35" r="5" fill="#ef4444" />
+                        </svg>
+                    </div>
+                    <p class="text-xs font-medium text-gray-700">2. choose / delicious / chocolate</p>
+                </div>
+                <!-- Picture 3 -->
+                <div class="border border-gray-300 rounded-lg p-2.5 bg-gray-50 text-center flex flex-col justify-between">
+                    <div class="h-28 flex items-center justify-center bg-white rounded border border-gray-200 mb-2 p-1">
+                        <svg class="w-20 h-20 text-rose-600" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="50" cy="45" r="25" />
+                            <circle cx="40" cy="40" r="3" fill="currentColor" />
+                            <circle cx="60" cy="40" r="3" fill="currentColor" />
+                            <ellipse cx="50" cy="58" rx="8" ry="5" />
+                            <path d="M30 20 Q40 10 50 20" />
+                        </svg>
+                    </div>
+                    <p class="text-xs font-medium text-gray-700">3. shocked / not find / wallet</p>
+                </div>
+                <!-- Picture 4 -->
+                <div class="border border-gray-300 rounded-lg p-2.5 bg-gray-50 text-center flex flex-col justify-between">
+                    <div class="h-28 flex items-center justify-center bg-white rounded border border-gray-200 mb-2 p-1">
+                        <span class="text-4xl font-bold text-indigo-500">? ? ?</span>
+                    </div>
+                    <p class="text-xs font-medium text-gray-700">4. (Create your own ending!)</p>
+                </div>
+            </div>
+
+            <!-- Student Composition Area -->
+            <div class="space-y-3">
+                <h3 class="text-center font-bold text-gray-800 tracking-wide underline">Mum's Birthday</h3>
+                <textarea id="writing-area" rows="10" placeholder="Write your composition here in 4 paragraphs..." class="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none leading-relaxed text-sm sm:text-base handwriting text-blue-900 bg-gray-50/50"></textarea>
+            </div>
+
+            <!-- Sample Composition Box (Hidden by default) -->
+            <div id="sample-writing" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-sm leading-relaxed text-indigo-950">
+                <h4 class="font-bold text-indigo-900 mb-2">Sample Composition (参考範文):</h4>
+                <p class="mb-2">Yesterday was Mum's birthday. I wanted to celebrate her birthday, so I went to a cake shop nearby to buy a birthday cake for her.</p>
+                <p class="mb-2">I knew Mum loves chocolate cakes. I chose a delicious chocolate cake because it looked yummy. I felt very excited and happy.</p>
+                <p class="mb-2">When I wanted to pay, I put my hand into my pocket. Suddenly, I was shocked because I couldn't find my wallet! I felt very worried and nervous.</p>
+                <p>Fortunately, my friend Tim walked into the cake shop. He lent me some money to buy the cake. In the end, I brought the cake home and Mum was very happy!</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function checkAnswers() {
+            let totalMarks = 0;
+            const inputs = document.querySelectorAll('input[data-answer]');
+            
+            inputs.forEach(input => {
+                const userAns = input.value.trim().toLowerCase();
+                const expectedAnsList = input.getAttribute('data-answer').toLowerCase().split('|');
+                
+                // Remove existing status indicators if any
+                let badge = input.nextElementSibling;
+                if (badge && badge.classList.contains('answer-badge')) {
+                    badge.remove();
+                }
+                
+                const isCorrect = expectedAnsList.some(ans => ans === userAns);
+
+                badge = document.createElement('span');
+                badge.className = 'answer-badge text-xs font-bold px-1.5 py-0.5 rounded ml-1 inline-block ';
+
+                if (isCorrect && userAns !== "") {
+                    badge.className += 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+                    badge.innerText = '✓';
+                    totalMarks += (input.id.startsWith('ans-b') || input.id.startsWith('ans-c') || input.id.startsWith('ans-d')) ? 2 : (input.id.startsWith('ans-e') ? 3 : 1);
+                } else {
+                    badge.className += 'bg-rose-100 text-rose-800 border border-rose-300';
+                    badge.innerText = `✗ (${expectedAnsList[0]})`;
+                }
+
+                input.parentNode.insertBefore(badge, input.nextSibling);
+            });
+
+            document.getElementById('current-score').innerText = totalMarks;
+        }
+
+        function toggleAnswerKey() {
+            const sampleWriting = document.getElementById('sample-writing');
+            const btn = document.getElementById('btn-toggle-key');
+            
+            if (sampleWriting.classList.contains('hidden')) {
+                sampleWriting.classList.remove('hidden');
+                btn.classList.add('bg-amber-600', 'hover:bg-amber-700');
+                btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                
+                // Fill in inputs with answer key values if empty
+                document.querySelectorAll('input[data-answer]').forEach(input => {
+                    const firstAnswer = input.getAttribute('data-answer').split('|')[0];
+                    if (!input.value) {
+                        input.value = firstAnswer;
+                    }
+                });
+            } else {
+                sampleWriting.classList.add('hidden');
+                btn.classList.remove('bg-amber-600', 'hover:bg-amber-700');
+                btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+            }
+        }
+
+        function resetForm() {
+            document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+            document.querySelectorAll('.answer-badge').forEach(el => el.remove());
+            document.getElementById('current-score').innerText = '__';
+            document.getElementById('sample-writing').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
