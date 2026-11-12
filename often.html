@@ -23,12 +23,22 @@ h1{font-size:32px;margin:6px 0 4px} .sub{color:#444;margin:0 0 12px}
 .ans-page{break-before:page} .ans-page h2{font-size:26px;border-top:4px solid #111;padding-top:10px}
 .ans-page table{width:100%;border-collapse:collapse} .ans-page th,.ans-page td{border:2px solid #111;padding:8px;text-align:left} .ans-page th{background:#111;color:#fff}
 .howto{background:#f0f0f0;border-left:8px solid #111;padding:10px 12px;margin:12px 0}
+.submit-bar{position:sticky;bottom:0;background:#fff;border-top:3px solid #111;padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;z-index:10}
+.submit-btn{background:#22c55e;color:#fff;border:3px solid #111;padding:14px 28px;font-size:20px;font-weight:900;border-radius:999px;cursor:pointer}
+.retry-btn{background:#fff;border:3px solid #111;padding:14px 22px;font-size:18px;font-weight:900;border-radius:999px;cursor:pointer}
+#result{display:none;border:4px solid #111;border-radius:18px;padding:16px;margin:18px 0;background:#fff8c5;font-size:18px}
+#result h2{margin:0 0 8px}
+.q.correct{border-color:#22c55e;background:#eaffea} .q.wrong{border-color:#ef4444;background:#ffeaea}
+.opt.correct-answer{background:#bbf7d0 !important;border-color:#22c55e} .opt.wrong-pick{background:#fecaca !important;border-color:#ef4444}
+.result-badge{display:none;font-weight:900;padding:6px 12px;border-radius:999px;margin-left:8px}
+.q.correct .result-badge{display:inline-block;background:#22c55e;color:#fff}
+.q.wrong .result-badge{display:inline-block;background:#ef4444;color:#fff}
 @media print{@page{size:A4;margin:12mm} .toolbar{display:none} .page{max-width:none;padding:0} h1{font-size:26pt} .q{break-inside:avoid}}
 </style></head><body>
 <div class="toolbar"><div><b>📚 How Often? — MC Practice</b><br><span>12 questions × 8 options (A–H) — Count ✓ → Pick adverb → Check verb + s</span></div><button onclick="window.print()">🖨️ Print / Save as PDF</button></div>
 <div class="page">
 <h1>How Often? — MC Questions</h1>
-<p class="sub">Each question has <b>8 choices (A–H)</b>. Each question has its own table with different activities. Tick ☐ your answer.</p>
+<p class="sub">Each question has <b>8 choices (A–H)</b>. Each question has its own table with different activities. Click / tap an option to select it — it will turn yellow.</p>
 <div class="rule"><b>Remember first:</b>
 <table><tr><th>Days</th><th>Adverb</th><th>Formula</th></tr>
 <tr><td>0 days = NEVER</td><td>1 day = SELDOM</td><td rowspan="3"><b>He / She + adverb + verb + s</b><br><br>✅ She often dances<br>❌ She oftens dances<br>❌ She often dance<br><b>Adverb NO S! Verb YES S!</b></td></tr>
@@ -132,10 +142,67 @@ h1{font-size:32px;margin:6px 0 4px} .sub{color:#444;margin:0 0 12px}
       <div class="opts"><label class='opt'><span class='letter'>A</span><span>He never paints.</span><input type='radio' name='q12' value='A'></label><label class='opt'><span class='letter'>B</span><span>He seldom paints.</span><input type='radio' name='q12' value='B'></label><label class='opt'><span class='letter'>C</span><span>He often paints.</span><input type='radio' name='q12' value='C'></label><label class='opt'><span class='letter'>D</span><span>He sometimes paints.</span><input type='radio' name='q12' value='D'></label><label class='opt'><span class='letter'>E</span><span>He always paints.</span><input type='radio' name='q12' value='E'></label><label class='opt'><span class='letter'>F</span><span>He alwayss paints.</span><input type='radio' name='q12' value='F'></label><label class='opt'><span class='letter'>G</span><span>He always paint.</span><input type='radio' name='q12' value='G'></label><label class='opt'><span class='letter'>H</span><span>He never paint.</span><input type='radio' name='q12' value='H'></label></div>
     </div>
     
-<div class="ans-page"><h2>✅ Answer Key — For Teacher / Self-check AFTER you finish</h2>
+<div id="result" role="status"></div>
+<div class="ans-page" id="answerkey"><h2>✅ Answer Key — For Teacher / Self-check AFTER you finish</h2>
 <p>Fold this page over while you do the questions. Do not look until you finish all 12.</p>
 <table><tr><th>Q</th><th>Person — Days</th><th>Correct Adverb</th><th>Letter</th><th>Correct Sentence</th></tr><tr><td>Q1</td><td>Polly — 0 days</td><td>NEVER</td><td>D</td><td>She never cooks.</td></tr><tr><td>Q2</td><td>Tom — 1 days</td><td>SELDOM</td><td>D</td><td>He seldom plays.</td></tr><tr><td>Q3</td><td>Ben — 2 days</td><td>SOMETIMES</td><td>C</td><td>He sometimes swims.</td></tr><tr><td>Q4</td><td>Alice — 3 days</td><td>SOMETIMES</td><td>A</td><td>She sometimes dances.</td></tr><tr><td>Q5</td><td>May — 4 days</td><td>OFTEN</td><td>C</td><td>She often reads.</td></tr><tr><td>Q6</td><td>Sue — 5 days</td><td>OFTEN</td><td>D</td><td>She often sings.</td></tr><tr><td>Q7</td><td>Thomas — 7 days</td><td>ALWAYS</td><td>G</td><td>He always paints.</td></tr><tr><td>Q8</td><td>Ken — 0 days</td><td>NEVER</td><td>F</td><td>He never runs.</td></tr><tr><td>Q9</td><td>Lily — 1 days</td><td>SELDOM</td><td>G</td><td>She seldom draws.</td></tr><tr><td>Q10</td><td>Sam — 3 days</td><td>SOMETIMES</td><td>B</td><td>He sometimes jumps.</td></tr><tr><td>Q11</td><td>Amy — 5 days</td><td>OFTEN</td><td>H</td><td>She often cooks.</td></tr><tr><td>Q12</td><td>Jack — 7 days</td><td>ALWAYS</td><td>E</td><td>He always paints.</td></tr></table>
 <p><b>Score:</b> ___ / 12 &nbsp; | &nbsp; <b>My mistakes:</b> _______________________________________________</p>
 <p><b>Why did I get it wrong?</b> ☐ Counted days wrong &nbsp; ☐ Mixed SOMETIMES / OFTEN &nbsp; ☐ Picked adverb + s &nbsp; ☐ Picked verb without s</p>
 </div>
-</div><script>document.querySelectorAll('.opt').forEach(l=>{l.addEventListener('click',()=>{l.querySelector('input').checked=true;});});</script></body></html>
+</div>
+<div class="submit-bar">
+  <span id="progress">Answered: 0 / 12</span>
+  <button class="submit-btn" id="submitBtn" type="button">✅ Submit &amp; Check Answers</button>
+  <button class="retry-btn" id="retryBtn" type="button" style="display:none">🔄 Try Again</button>
+  <button class="retry-btn" onclick="window.print()" type="button">🖨️ Print</button>
+</div>
+<script>
+const ANSWERS = {1:'D',2:'D',3:'C',4:'A',5:'C',6:'D',7:'G',8:'F',9:'G',10:'B',11:'H',12:'E'};
+const TOTAL = 12;
+document.querySelectorAll('.opt').forEach(l=>{l.addEventListener('click',()=>{l.querySelector('input').checked=true; updateProgress();});});
+document.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change', updateProgress));
+function updateProgress(){
+  let n=0; for(let q=1;q<=TOTAL;q++){ if(document.querySelector('input[name="q'+q+'"]:checked')) n++; }
+  document.getElementById('progress').textContent = 'Answered: '+n+' / '+TOTAL;
+}
+function clearMarks(){
+  document.querySelectorAll('.q').forEach(q=>{q.classList.remove('correct','wrong'); const b=q.querySelector('.result-badge'); if(b) b.remove();});
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct-answer','wrong-pick'));
+}
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  let score=0, unanswered=[], wrong=[];
+  clearMarks();
+  for(let q=1;q<=TOTAL;q++){
+    const picked = document.querySelector('input[name="q'+q+'"]:checked');
+    const qEl = document.querySelectorAll('.q')[q-1];
+    const badge = document.createElement('span'); badge.className='result-badge';
+    if(!picked){ unanswered.push(q); qEl.classList.add('wrong'); badge.textContent='⚠️ Not answered'; qEl.querySelector('.qhead').appendChild(badge); continue; }
+    const correctLetter = ANSWERS[q];
+    const correctOpt = qEl.querySelector('input[value="'+correctLetter+'"]').closest('.opt');
+    correctOpt.classList.add('correct-answer');
+    if(picked.value===correctLetter){ score++; qEl.classList.add('correct'); badge.textContent='✅ Correct'; }
+    else { qEl.classList.add('wrong'); badge.textContent='❌ Wrong — correct is '+correctLetter; picked.closest('.opt').classList.add('wrong-pick'); wrong.push(q); }
+    qEl.querySelector('.qhead').appendChild(badge);
+  }
+  const pct = Math.round(score/TOTAL*100);
+  let msg = score===TOTAL ? '🎉 Perfect! 12 / 12 — You are a How Often? star!' : pct>=80 ? '👏 Great job!' : pct>=60 ? '👍 Good — a little more practice!' : '💪 Keep practising — look at the red ones again!';
+  const res = document.getElementById('result');
+  res.style.display='block';
+  res.innerHTML = '<h2>'+msg+'</h2><p><b>Your score: '+score+' / '+TOTAL+' ('+pct+'%)</b></p>'
+    + (unanswered.length? '<p>⚠️ Not answered yet: Q'+unanswered.join(', Q')+' — pick one and submit again.</p>':'')
+    + (wrong.length? '<p>❌ Wrong: Q'+wrong.join(', Q')+' — the correct answers are highlighted in <b>green</b>, your wrong pick in <b>red</b>.</p>':'<p>✅ All answered questions are correct!</p>')
+    + '<p>Remember: <b>0=NEVER, 1=SELDOM, 2–3=SOMETIMES, 4–5=OFTEN, 7=ALWAYS</b> &nbsp;|&nbsp; <b>Adverb NO S! Verb YES S!</b></p>'
+    + '<p>Scroll up to see green = correct, red = wrong. Then tap <b>Try Again</b> to clear and redo.</p>';
+  document.getElementById('retryBtn').style.display='inline-block';
+  res.scrollIntoView({behavior:'smooth'});
+});
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  clearMarks();
+  document.getElementById('result').style.display='none';
+  document.getElementById('retryBtn').style.display='none';
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+updateProgress();
+</script></body></html>
