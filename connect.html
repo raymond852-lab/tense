@@ -11,6 +11,16 @@
 .sent{border:2px solid #111;border-radius:12px;padding:14px;font-size:20px;font-weight:800;background:#f7f7f7;margin:12px 0} .blank{color:#c00;border-bottom:3px solid #c00;padding:0 6px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px} .opt{display:flex;gap:8px;align-items:center;border:2px solid #111;border-radius:10px;padding:10px;font-size:16px} .letter{background:#111;color:#fff;width:28px;height:28px;min-width:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900} .box{margin-left:auto}
 .ans{break-before:page} .ans table{width:100%;border-collapse:collapse} .ans th,.ans td{border:2px solid #111;padding:8px;text-align:left} .ans th{background:#111;color:#fff}
+.submit-bar{position:sticky;bottom:0;background:#fff;border-top:3px solid #111;padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;z-index:10}
+.submit-btn{background:#22c55e;color:#fff;border:3px solid #111;padding:14px 28px;font-size:20px;font-weight:900;border-radius:999px;cursor:pointer}
+.retry-btn{background:#fff;border:3px solid #111;padding:14px 22px;font-size:18px;font-weight:900;border-radius:999px;cursor:pointer}
+#result{display:none;border:4px solid #111;border-radius:18px;padding:16px;margin:18px 0;background:#fff8c5;font-size:18px}
+#result h2{margin:0 0 8px} #result ul{margin:8px 0}
+.q.correct{border-color:#22c55e;background:#eaffea} .q.wrong{border-color:#ef4444;background:#ffeaea}
+.opt.correct-answer{background:#bbf7d0 !important;border-color:#22c55e} .opt.wrong-pick{background:#fecaca !important;border-color:#ef4444}
+.result-badge{display:none;font-weight:900;padding:6px 12px;border-radius:999px;margin-left:8px}
+.q.correct .result-badge{display:inline-block;background:#22c55e;color:#fff}
+.q.wrong .result-badge{display:inline-block;background:#ef4444;color:#fff}
 @media print{@page{size:A4;margin:12mm} .toolbar{display:none} .page{max-width:none;padding:0}}
 </style></head><body>
 <div class="toolbar"><div><b>🧩 Connectors — Select the Correct Connector</b><br><span>20 questions × 8 options (A–H) — Fill the blank</span></div><button onclick="window.print()">🖨️ Print / Save as PDF</button></div>
@@ -65,7 +75,63 @@
     <div class="opts"><label class='opt'><span class='letter'>A</span><span>so</span><input type='radio' name='q19' value='A'></label><label class='opt'><span class='letter'>B</span><span>in order to</span><input type='radio' name='q19' value='B'></label><label class='opt'><span class='letter'>C</span><span>moreover</span><input type='radio' name='q19' value='C'></label><label class='opt'><span class='letter'>D</span><span>and</span><input type='radio' name='q19' value='D'></label><label class='opt'><span class='letter'>E</span><span>while</span><input type='radio' name='q19' value='E'></label><label class='opt'><span class='letter'>F</span><span>before</span><input type='radio' name='q19' value='F'></label><label class='opt'><span class='letter'>G</span><span>since</span><input type='radio' name='q19' value='G'></label><label class='opt'><span class='letter'>H</span><span>although</span><input type='radio' name='q19' value='H'></label></div></div><div class="q"><div class="qhead"><span class="qnum">Q20</span><span>Choose the <b>correct connector</b> to fill the blank.</span><span class="hint">💡 WHEN? = time order</span></div>
     <div class="sent">Do your work <span class="blank">________</span> you forget it.</div>
     <div class="opts"><label class='opt'><span class='letter'>A</span><span>in order to</span><input type='radio' name='q20' value='A'></label><label class='opt'><span class='letter'>B</span><span>because</span><input type='radio' name='q20' value='B'></label><label class='opt'><span class='letter'>C</span><span>so</span><input type='radio' name='q20' value='C'></label><label class='opt'><span class='letter'>D</span><span>but</span><input type='radio' name='q20' value='D'></label><label class='opt'><span class='letter'>E</span><span>before</span><input type='radio' name='q20' value='E'></label><label class='opt'><span class='letter'>F</span><span>and</span><input type='radio' name='q20' value='F'></label><label class='opt'><span class='letter'>G</span><span>while</span><input type='radio' name='q20' value='G'></label><label class='opt'><span class='letter'>H</span><span>moreover</span><input type='radio' name='q20' value='H'></label></div></div>
-<div class="ans"><h2>✅ Answer Key — Fold over until you finish</h2><table><tr><th>Q</th><th>Sentence</th><th>Correct Connector</th><th>Letter</th></tr><tr><td>Q1</td><td>Grandma can't listen ___ the speaker is broken.</td><td><b>because</b></td><td><b>B</b></td></tr><tr><td>Q2</td><td>It was broken, ___ it means a lot.</td><td><b>so</b></td><td><b>E</b></td></tr><tr><td>Q3</td><td>___ old things are nice, I like new more.</td><td><b>Although</b></td><td><b>H</b></td></tr><tr><td>Q4</td><td>We can go to the museum ___ the zoo.</td><td><b>or</b></td><td><b>C</b></td></tr><tr><td>Q5</td><td>Jerry is talking ___ Jenny is watching.</td><td><b>while</b></td><td><b>B</b></td></tr><tr><td>Q6</td><td>Life changed a lot ___ computers were invented.</td><td><b>after</b></td><td><b>A</b></td></tr><tr><td>Q7</td><td>She practises hard ___ take nicer pictures.</td><td><b>so as to</b></td><td><b>A</b></td></tr><tr><td>Q8</td><td>I stayed at home ___ I was sick.</td><td><b>because</b></td><td><b>A</b></td></tr><tr><td>Q9</td><td>It rained a lot, ___ the picnic was cancelled.</td><td><b>so</b></td><td><b>F</b></td></tr><tr><td>Q10</td><td>I like apples ___ oranges. Both are yummy.</td><td><b>and</b></td><td><b>A</b></td></tr><tr><td>Q11</td><td>Please finish your homework ___ you go out to play.</td><td><b>before</b></td><td><b>E</b></td></tr><tr><td>Q12</td><td>He studies hard ___ get good marks.</td><td><b>in order to</b></td><td><b>E</b></td></tr><tr><td>Q13</td><td>She is small, ___ she is very strong.</td><td><b>but</b></td><td><b>D</b></td></tr><tr><td>Q14</td><td>___ it was raining, we played outside.</td><td><b>Even though</b></td><td><b>F</b></td></tr><tr><td>Q15</td><td>We will wait ___ the bell rings.</td><td><b>until</b></td><td><b>D</b></td></tr><tr><td>Q16</td><td>She was hungry, ___ she ate a sandwich.</td><td><b>therefore</b></td><td><b>H</b></td></tr><tr><td>Q17</td><td>He got up early ___ catch the bus.</td><td><b>so as to</b></td><td><b>G</b></td></tr><tr><td>Q18</td><td>I love music ___ I play the piano every day.</td><td><b>and</b></td><td><b>H</b></td></tr><tr><td>Q19</td><td>She cried ___ she lost her toy.</td><td><b>since</b></td><td><b>G</b></td></tr><tr><td>Q20</td><td>Do your work ___ you forget it.</td><td><b>before</b></td><td><b>E</b></td></tr></table>
+<div id="result" role="status"></div>
+<div class="ans" id="answerkey"><h2>✅ Answer Key — Fold over until you finish</h2><table><tr><th>Q</th><th>Sentence</th><th>Correct Connector</th><th>Letter</th></tr><tr><td>Q1</td><td>Grandma can't listen ___ the speaker is broken.</td><td><b>because</b></td><td><b>B</b></td></tr><tr><td>Q2</td><td>It was broken, ___ it means a lot.</td><td><b>so</b></td><td><b>E</b></td></tr><tr><td>Q3</td><td>___ old things are nice, I like new more.</td><td><b>Although</b></td><td><b>H</b></td></tr><tr><td>Q4</td><td>We can go to the museum ___ the zoo.</td><td><b>or</b></td><td><b>C</b></td></tr><tr><td>Q5</td><td>Jerry is talking ___ Jenny is watching.</td><td><b>while</b></td><td><b>B</b></td></tr><tr><td>Q6</td><td>Life changed a lot ___ computers were invented.</td><td><b>after</b></td><td><b>A</b></td></tr><tr><td>Q7</td><td>She practises hard ___ take nicer pictures.</td><td><b>so as to</b></td><td><b>A</b></td></tr><tr><td>Q8</td><td>I stayed at home ___ I was sick.</td><td><b>because</b></td><td><b>A</b></td></tr><tr><td>Q9</td><td>It rained a lot, ___ the picnic was cancelled.</td><td><b>so</b></td><td><b>F</b></td></tr><tr><td>Q10</td><td>I like apples ___ oranges. Both are yummy.</td><td><b>and</b></td><td><b>A</b></td></tr><tr><td>Q11</td><td>Please finish your homework ___ you go out to play.</td><td><b>before</b></td><td><b>E</b></td></tr><tr><td>Q12</td><td>He studies hard ___ get good marks.</td><td><b>in order to</b></td><td><b>E</b></td></tr><tr><td>Q13</td><td>She is small, ___ she is very strong.</td><td><b>but</b></td><td><b>D</b></td></tr><tr><td>Q14</td><td>___ it was raining, we played outside.</td><td><b>Even though</b></td><td><b>F</b></td></tr><tr><td>Q15</td><td>We will wait ___ the bell rings.</td><td><b>until</b></td><td><b>D</b></td></tr><tr><td>Q16</td><td>She was hungry, ___ she ate a sandwich.</td><td><b>therefore</b></td><td><b>H</b></td></tr><tr><td>Q17</td><td>He got up early ___ catch the bus.</td><td><b>so as to</b></td><td><b>G</b></td></tr><tr><td>Q18</td><td>I love music ___ I play the piano every day.</td><td><b>and</b></td><td><b>H</b></td></tr><tr><td>Q19</td><td>She cried ___ she lost her toy.</td><td><b>since</b></td><td><b>G</b></td></tr><tr><td>Q20</td><td>Do your work ___ you forget it.</td><td><b>before</b></td><td><b>E</b></td></tr></table>
 <p><b>Score:</b> ___ / 20</p><p><b>My mistakes:</b> ☐ Mixed because / so &nbsp; ☐ Mixed while / before-after &nbsp; ☐ Mixed and / but &nbsp; ☐ Mixed so / in order to</p>
 <p><b>Rule to re-read:</b> _______________________________________________</p></div>
-</div><script>document.querySelectorAll('.opt').forEach(l=>{l.addEventListener('click',()=>{l.querySelector('input').checked=true;});});</script></body></html>
+</div>
+<div class="submit-bar">
+  <span id="progress">Answered: 0 / 20</span>
+  <button class="submit-btn" id="submitBtn" type="button">✅ Submit &amp; Check Answers</button>
+  <button class="retry-btn" id="retryBtn" type="button" style="display:none">🔄 Try Again</button>
+  <button class="retry-btn" onclick="window.print()" type="button">🖨️ Print</button>
+</div>
+<script>
+const ANSWERS = {1:'B',2:'E',3:'H',4:'C',5:'B',6:'A',7:'A',8:'A',9:'F',10:'A',11:'E',12:'E',13:'D',14:'F',15:'D',16:'H',17:'G',18:'H',19:'G',20:'E'};
+document.querySelectorAll('.opt').forEach(l=>{l.addEventListener('click',()=>{l.querySelector('input').checked=true; updateProgress();});});
+document.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change', updateProgress));
+function updateProgress(){
+  let n=0; for(let q=1;q<=20;q++){ if(document.querySelector('input[name="q'+q+'"]:checked')) n++; }
+  document.getElementById('progress').textContent = 'Answered: '+n+' / 20';
+}
+function clearMarks(){
+  document.querySelectorAll('.q').forEach(q=>{q.classList.remove('correct','wrong'); const b=q.querySelector('.result-badge'); if(b) b.remove();});
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct-answer','wrong-pick'));
+}
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  let score=0, unanswered=[], wrong=[];
+  clearMarks();
+  for(let q=1;q<=20;q++){
+    const picked = document.querySelector('input[name="q'+q+'"]:checked');
+    const qEl = document.querySelectorAll('.q')[q-1];
+    const badge = document.createElement('span'); badge.className='result-badge';
+    if(!picked){ unanswered.push(q); qEl.classList.add('wrong'); badge.textContent='⚠️ Not answered'; qEl.querySelector('.qhead').appendChild(badge); continue; }
+    const correctLetter = ANSWERS[q];
+    const correctOpt = qEl.querySelector('input[value="'+correctLetter+'"]').closest('.opt');
+    correctOpt.classList.add('correct-answer');
+    if(picked.value===correctLetter){ score++; qEl.classList.add('correct'); badge.textContent='✅ Correct'; }
+    else { qEl.classList.add('wrong'); badge.textContent='❌ Wrong — correct is '+correctLetter; picked.closest('.opt').classList.add('wrong-pick'); wrong.push(q); }
+    qEl.querySelector('.qhead').appendChild(badge);
+  }
+  const pct = Math.round(score/20*100);
+  let msg = score===20 ? '🎉 Perfect! 20 / 20 — You are a connector star!' : pct>=80 ? '👏 Great job!' : pct>=60 ? '👍 Good — a little more practice!' : '💪 Keep practising — look at the red ones again!';
+  const res = document.getElementById('result');
+  res.style.display='block';
+  res.innerHTML = '<h2>'+msg+'</h2><p><b>Your score: '+score+' / 20 ('+pct+'%)</b></p>'
+    + (unanswered.length? '<p>⚠️ Not answered yet: Q'+unanswered.join(', Q')+' — pick one and submit again.</p>':'')
+    + (wrong.length? '<p>❌ Wrong: Q'+wrong.join(', Q')+' — the correct answers are highlighted in <b>green</b>, your wrong pick in <b>red</b>.</p>':'<p>✅ All answered questions are correct!</p>')
+    + '<p>Scroll up to see green = correct, red = wrong. Then tap <b>Try Again</b> to clear and redo.</p>';
+  document.getElementById('retryBtn').style.display='inline-block';
+  res.scrollIntoView({behavior:'smooth'});
+  document.getElementById('answerkey').scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  clearMarks();
+  document.getElementById('result').style.display='none';
+  document.getElementById('retryBtn').style.display='none';
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+updateProgress();
+</script></body></html>
